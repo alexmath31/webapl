@@ -1,11 +1,12 @@
-from flask import Flask, url_for, render_template, request
+from flask import Flask, url_for, render_template, request, flash
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "asd"
 
 
 @app.route("/")
 def index():
-    return "Hello World"
+    return render_template("index.html")
 
 
 @app.route("/greet/<name>")
@@ -23,6 +24,7 @@ items_storage = []
 
 @app.route("/items", methods={"GET", "POST"})
 def items_endpoint():
+    flash ("Database unavailable. Try again later")
     if request.method == "POST":
         item = request.form.get("item")
         items_storage.append(item)
