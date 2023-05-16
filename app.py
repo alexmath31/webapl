@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, flash
+from flask import Flask, url_for, render_template, request, flash, redirect
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asd"
@@ -28,6 +28,8 @@ def items_endpoint():
     if request.method == "POST":
         item = request.form.get("item")
         items_storage.append(item)
+    return redirect(url_for("index"))
+
     return render_template("items.html", items=items_storage)
 
 
